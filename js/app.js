@@ -2,8 +2,8 @@ let lives = 7;
 let targetNumber = Math.floor(Math.random() * 100) + 1;
 let guesses = [];
 
-const tebakButton = document.getElementById("tebak")
-const newGameButton = document.getElementById("startNewGame")
+const tebakButton = document.getElementById("tebak");
+const newGameButton = document.getElementById("startNewGame");
 
 function checkGuess() {
   const userGuess = document.getElementById("guessInput").value;
@@ -26,7 +26,7 @@ function checkGuess() {
     setMessage(`YEY ANGKA ${guess} BETUL!! SELAMATT YA!!!😁`);
     document.getElementById("clue").innerHTML = "GOOD DOG";
     resetGames();
-    stopPouBacksound()
+    stopPouBacksound();
     playWinSound();
     playWinGif();
   } else {
@@ -74,78 +74,78 @@ function checkGuess() {
   }
 
   function playWrongSound() {
-    var audio = document.getElementById('wrongSound')
-    audio.volume = 1
-    audio.play()
+    var audio = document.getElementById("wrongSound");
+    audio.volume = 1;
+    audio.play();
   }
 
   function playWinSound() {
-    var audio = document.getElementById('winSound')
-    audio.volume = 0.3
-    audio.play()
+    var audio = document.getElementById("winSound");
+    audio.volume = 0.3;
+    audio.play();
   }
 
   function playLoseSound() {
-    var audioLose = document.getElementById('loseSound')
+    var audioLose = document.getElementById("loseSound");
     // audioLose.volume = 2
-    audioLose.play()
+    audioLose.play();
   }
 
   function playWinGif() {
-    const winGif = document.getElementById('joget');
-    winGif.classList.remove("hidden")
+    const winGif = document.getElementById("joget");
+    winGif.classList.remove("hidden");
 
-    setTimeout(function(){
-    winGif.classList.add("hidden")
-    }, 20000)
+    setTimeout(function () {
+      winGif.classList.add("hidden");
+    }, 20000);
   }
 
   function resetGames() {
     lives = 7;
     updateLifeCount();
     targetNumber = Math.floor(Math.random() * 100) + 1;
-    clearGuesses()
+    clearGuesses();
 
-    tebakButton.classList.add('hidden')
-    newGameButton.classList.remove('hidden')
+    tebakButton.classList.add("hidden");
+    newGameButton.classList.remove("hidden");
   }
 }
 
 function displayGuesses() {
-  const guessesElement = document.getElementById('guesses')
+  const guessesElement = document.getElementById("guesses");
   guessesElement.innerHTML = "";
 
   guesses.forEach((guess, index) => {
-    const guessItem = document.createElement("span")
-    guessItem.textContent = ` ${guess} |`
+    const guessItem = document.createElement("span");
+    guessItem.textContent = ` ${guess} |`;
 
     if (guess === targetNumber) {
-      guessItem.classList.add('text-green-500')
+      guessItem.classList.add("text-green-500");
     } else {
-      guessItem.classList.add('text-red-600')
+      guessItem.classList.add("text-red-600");
     }
 
-    guessesElement.appendChild(guessItem)
-  })
+    guessesElement.appendChild(guessItem);
+  });
 }
 
 function clearGuesses() {
-  guesses = []
-  displayGuesses()
+  guesses = [];
+  displayGuesses();
 }
 
 function startNewGame() {
-  newGameButton.classList.add('hidden')
-  tebakButton.classList.remove('hidden')
-  playPouBacksound()
+  newGameButton.classList.add("hidden");
+  tebakButton.classList.remove("hidden");
+  playPouBacksound();
 }
 
 // BACKSOUND
-function playPouBacksound(){
-  const backsound = document.getElementById("backsound")
-  backsound.volume = 0.1
-  backsound.loop = true
-  backsound.play()
+function playPouBacksound() {
+  const backsound = document.getElementById("backsound");
+  backsound.volume = 0.1;
+  backsound.loop = true;
+  backsound.play();
 }
 
 function stopPouBacksound() {
@@ -154,21 +154,14 @@ function stopPouBacksound() {
   backsound.currentTime = 0;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const playCheckbox = document.getElementById("sound")
-  const labelCheckbox = document.getElementById("soundLabel")
-
+const playCheckbox = document.getElementById("sound");
+const labelCheckbox = document.getElementById("soundLabel");
+playCheckbox.addEventListener("change", function () {
   if (playCheckbox.checked) {
-    playPouBacksound()
+    playPouBacksound();
+    labelCheckbox.innerHTML = "Musik On 🔊";
+  } else {
+    stopPouBacksound();
+    labelCheckbox.innerHTML = "Musik Off 🔈";
   }
-
-  playCheckbox.addEventListener("change", function() {
-    if (playCheckbox.checked) {
-      playPouBacksound()
-      labelCheckbox.innerHTML = "Musik On 🔊"
-    } else {
-      stopPouBacksound()
-      labelCheckbox.innerHTML = "Musik Off 🔈"
-    }
-  });
 });
