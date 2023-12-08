@@ -1,5 +1,6 @@
-let lives = 10;
+let lives = 7;
 let targetNumber = Math.floor(Math.random() * 100) + 1;
+let guesses = [];
 
 function checkGuess() {
   const userGuess = document.getElementById("guessInput").value;
@@ -16,9 +17,14 @@ function checkGuess() {
     return;
   }
 
+  guesses.push(guess);
+  displayGuesses();
+
   if (guess === targetNumber) {
     setMessage(`YEY ANGKA ${guess} BETUL!! SELAMATT YA!!!😁`);
     resetGames();
+    playWinSound();
+    playWinGif();
   } else {
     lives--;
 
@@ -59,10 +65,49 @@ function checkGuess() {
     }
   }
 
+  function playWinSound() {
+    var audio = document.getElementById('winSound')
+    audio.volume = 0.3
+    audio.play()
+  }
+
+  function playWinGif() {
+    const winGif = document.getElementById('joget');
+    winGif.classList.remove("hidden")
+
+    setTimeout(function(){
+    winGif.classList.add("hidden")
+    }, 20000)
+  }
+
   function resetGames() {
-    lives = 10;
+    lives = 7;
     document.getElementById("clue").innerHTML = "GOOD DOG";
     updateLifeCount();
     targetNumber = Math.floor(Math.random() * 100) + 1;
+    clearGuesses()
   }
+}
+
+function displayGuesses() {
+  const guessesElement = document.getElementById('guesses')
+  guessesElement.innerHTML = "";
+
+  guesses.forEach((guess, index) => {
+    const guessItem = document.createElement("span")
+    guessItem.textContent = `| ${guess} |`
+
+    if (guess === targetNumber) {
+      guessItem.classList.add('text-green-500')
+    } else {
+      guessItem.classList.add('text-red-600')
+    }
+
+    guessesElement.appendChild(guessItem)
+  })
+}
+
+function clearGuesses() {
+  const guessesElement = document.getElementById("guesses");
+  guessesElement.innerHTML = "";
 }

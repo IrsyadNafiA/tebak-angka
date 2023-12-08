@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tebak Angka | Irsyad's Games</title>
-    <link rel="icon" href="../assets/icon.png" type="image/x-icon">
+    <link rel="icon" href="../assets/img/icon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <div class="h-screen py-8 bg-lucu bg-no-repeat bg-cover">
+    <div class="h-fit sm:h-screen py-8 bg-lucu bg-no-repeat bg-cover">
         <div class="h-full flex flex-col px-8">
             <header class="w-full flex justify-center mb-2">
                 <h1 class="font-bold text-4xl text-white">PERMAINAN TEBAK ANGKA</h1>
             </header>
             <hr class="my-2 block md:hidden">
-            <section class="h-full flex flex-col">
+            <section class="h-full flex flex-col mb-4">
                 <div class="w-full flex flex-col gap-2">
                     <label class="font-semibold text-lg text-white">Masukkan angka antara 1 sampai 100 : </label>
                     <input type="number" id="guessInput"
@@ -25,31 +25,43 @@
                     <button class="bg-green-500 rounded-md px-4 py-1 w-fit text-white m-auto mt-2 hover:bg-green-600"
                         onclick="checkGuess()">Tebak</button>
                 </div>
-                <div class="w-full bg-indigo-200/50 p-4 mt-4 rounded-md h-3/4 relative shadow-md ring-2 ring-blue-400">
-                    <div class="bg-slate-100/75 p-4 w-fit rounded-md ring-1 ring-blue-400">
+                <div class="h-full flex flex-col md:flex-row gap-4 mt-4">
+                    <div class="bg-slate-100/75 p-4 w-full md:w-1/3 rounded-md ring-1 ring-blue-400 h-1/3 md:h-fit">
                         <table>
-                            <tr id="lives" class="font-bold text-lg text-start align-top">
+                            <tr id="lives" class="font-bold text-sm md:text-lg text-start align-top">
                                 <td>Nyawa</td>
                                 <td class="px-1">:</td>
-                                <td id="lifeCount">❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️</td>
+                                <td id="lifeCount">❤️❤️❤️❤️❤️❤️❤️</td>
                             </tr>
-                            <tr id="lives" class="text-red-600 font-bold text-lg align-top">
+                            <tr class="font-bold text-sm md:text-lg text-start align-top">
+                                <td>Tebakan</td>
+                                <td class="px-1">:</td>
+                                <td id="guesses">-</td>
+                            </tr>
+                            <tr class="text-red-600 font-bold text-sm md:text-lg align-top">
                                 <td>Clue</td>
                                 <td class="px-1">:</td>
                                 <td id="clue">Mainkan aja dulu lek</td>
                             </tr>
                         </table>
-                        <!-- <p id="lives" class="">Nyawa : <span id="lifeCount">❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️</span></p> -->
-                        <!-- <p class="text-red-600 font-bold text-lg">CLUE : <span id="clue">-</span></p> -->
+                        <audio id="winSound" src="../assets/audio/win.mp3"></audio>
                     </div>
-                    <div class="w-full flex justify-center items-center h-2/3">
-                        <p id="message" class="text-2xl md:text-3xl text-white text-center">WALAWE....</p>
+                    <div
+                        class="w-full bg-indigo-200/50 p-4 rounded-md h-[50vh] md:h-full relative shadow-md ring-2 ring-blue-400">
+                        <img id="joget" class="h-2/3 absolute top-0 left-1/2 hidden" src="../assets/img/giphy.gif"
+                            alt="joget">
+                        <div class="w-full flex justify-center items-center h-full">
+                            <p id="message" class="text-2xl md:text-3xl text-white text-center">WALAWE....</p>
+                        </div>
                     </div>
                 </div>
-                <a href="../index.html" class="text-white mt-4 bg-slate-400 w-fit py-1 px-2 rounded-md hover:bg-slate-500">Back</a>
+                <a href="../index.html"
+                    class="text-white mt-4 bg-slate-400 w-fit py-1 px-2 rounded-md hover:bg-slate-500">Back</a>
             </section>
             <footer class="mt-4 lg:mt-0">
-                <p class="text-white text-sm lg:text-base">Made with love 💖 by <a href="https://instagram.com/irsyadnichol" target="_blank" class="text-blue-400 hover:text-blue-600">Irsyad Nafi</a> 🤓</p>
+                <p class="text-white text-sm lg:text-base">Made with love 💖 by <a
+                        href="https://instagram.com/irsyadnichol" target="_blank"
+                        class="text-blue-400 hover:text-blue-600">Irsyad Nafi</a> 🤓</p>
             </footer>
         </div>
     </div>
