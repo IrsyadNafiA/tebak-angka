@@ -10,20 +10,33 @@
 </head>
 
 <body>
-    <div class="h-fit sm:h-screen py-8 bg-lucu bg-no-repeat bg-cover">
+    <audio id="backsound" src="../assets/audio/backsound.mp3"></audio>
+    <div class="h-fit sm:h-screen pt-8 pb-4 bg-lucu bg-no-repeat bg-cover">
         <div class="h-full flex flex-col px-8">
             <header class="w-full flex justify-center mb-2">
                 <h1 class="font-bold text-4xl text-white">PERMAINAN TEBAK ANGKA</h1>
             </header>
             <hr class="my-2 block md:hidden">
             <section class="h-full flex flex-col mb-4">
+                <div class="flex gap-1 items-center">
+                    <input type="checkbox" id="sound" name="sound"
+                        class=" before:content[''] relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-900 checked:bg-red-500 checked:before:bg-gray-900 hover:before:opacity-10"
+                        checked>
+                    <label for="sound" id="soundLabel" class="text-white">
+                        Musik On 🔊
+                    </label>
+                </div>
                 <div class="w-full flex flex-col gap-2">
                     <label class="font-semibold text-lg text-white">Masukkan angka antara 1 sampai 100 : </label>
                     <input type="number" id="guessInput"
                         class="p-2 border-2 border-blue-400 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-400"
                         placeholder="Masukkan angka disini">
-                    <button class="bg-green-500 rounded-md px-4 py-1 w-fit text-white m-auto mt-2 hover:bg-green-600"
+                    <button id="tebak"
+                        class="bg-green-500 rounded-md px-4 py-1 w-fit text-white m-auto mt-2 hover:bg-green-600"
                         onclick="checkGuess()">Tebak</button>
+                    <button id="startNewGame"
+                        class="bg-green-500 rounded-md px-4 py-1 w-fit text-white m-auto mt-2 hover:bg-green-600 hidden"
+                        onclick="startNewGame()">Mulai Lagi</button>
                 </div>
                 <div class="h-full flex flex-col md:flex-row gap-4 mt-4">
                     <div class="bg-slate-100/75 p-4 w-full md:w-1/3 rounded-md ring-1 ring-blue-400 h-1/3 md:h-fit">
@@ -45,6 +58,8 @@
                             </tr>
                         </table>
                         <audio id="winSound" src="../assets/audio/win.mp3"></audio>
+                        <audio id="loseSound" src="../assets/audio/lose.mp3"></audio>
+                        <audio id="wrongSound" src="../assets/audio/wrong.mp3"></audio>
                     </div>
                     <div
                         class="w-full bg-indigo-200/50 p-4 rounded-md h-[50vh] md:h-full relative shadow-md ring-2 ring-blue-400">
@@ -55,8 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="../index.html"
-                    class="text-white mt-4 bg-slate-400 w-fit py-1 px-2 rounded-md hover:bg-slate-500">Back</a>
+                <a href="/" class="text-white mt-4 bg-slate-400 w-fit py-1 px-2 rounded-md hover:bg-slate-500">Back</a>
             </section>
             <footer class="mt-4 lg:mt-0">
                 <p class="text-white text-sm lg:text-base">Made with love 💖 by <a

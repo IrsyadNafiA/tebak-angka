@@ -2,10 +2,12 @@ let lives = 7;
 let targetNumber = Math.floor(Math.random() * 100) + 1;
 let guesses = [];
 
+const tebakButton = document.getElementById("tebak")
+const newGameButton = document.getElementById("startNewGame")
+
 function checkGuess() {
   const userGuess = document.getElementById("guessInput").value;
   const guess = parseInt(userGuess);
-  console.log(targetNumber);
 
   if (userGuess == "") {
     setMessage("Masukkan angka terlebih dahulu");
@@ -22,7 +24,9 @@ function checkGuess() {
 
   if (guess === targetNumber) {
     setMessage(`YEY ANGKA ${guess} BETUL!! SELAMATT YA!!!😁`);
+    document.getElementById("clue").innerHTML = "GOOD DOG";
     resetGames();
+    stopPouBacksound()
     playWinSound();
     playWinGif();
   } else {
@@ -30,10 +34,14 @@ function checkGuess() {
 
     if (lives === 0) {
       setMessage(`YAH MATI KAU TOLOLLLLL WKWKKWKWKW`);
+      document.getElementById("clue").innerHTML = "GOBLOK GOBLOK";
       resetGames();
+      stopPouBacksound();
+      playLoseSound();
     } else {
       setMessage("SALAH TOLOLLLLLL KWKWKWKWKWKW");
       updateLifeCount();
+      playWrongSound();
       clue();
     }
   }
@@ -59,16 +67,28 @@ function checkGuess() {
 
   function clue() {
     if (guess > targetNumber) {
-      document.getElementById("clue").innerHTML = "< :p";
+      document.getElementById("clue").innerHTML = "⬇️";
     } else {
-      document.getElementById("clue").innerHTML = "> :p";
+      document.getElementById("clue").innerHTML = "⬆️";
     }
+  }
+
+  function playWrongSound() {
+    var audio = document.getElementById('wrongSound')
+    audio.volume = 1
+    audio.play()
   }
 
   function playWinSound() {
     var audio = document.getElementById('winSound')
     audio.volume = 0.3
     audio.play()
+  }
+
+  function playLoseSound() {
+    var audioLose = document.getElementById('loseSound')
+    // audioLose.volume = 2
+    audioLose.play()
   }
 
   function playWinGif() {
@@ -82,10 +102,12 @@ function checkGuess() {
 
   function resetGames() {
     lives = 7;
-    document.getElementById("clue").innerHTML = "GOOD DOG";
     updateLifeCount();
     targetNumber = Math.floor(Math.random() * 100) + 1;
     clearGuesses()
+
+    tebakButton.classList.add('hidden')
+    newGameButton.classList.remove('hidden')
   }
 }
 
@@ -95,7 +117,7 @@ function displayGuesses() {
 
   guesses.forEach((guess, index) => {
     const guessItem = document.createElement("span")
-    guessItem.textContent = `| ${guess} |`
+    guessItem.textContent = ` ${guess} |`
 
     if (guess === targetNumber) {
       guessItem.classList.add('text-green-500')
@@ -108,6 +130,45 @@ function displayGuesses() {
 }
 
 function clearGuesses() {
-  const guessesElement = document.getElementById("guesses");
-  guessesElement.innerHTML = "";
+  guesses = []
+  displayGuesses()
 }
+
+function startNewGame() {
+  newGameButton.classList.add('hidden')
+  tebakButton.classList.remove('hidden')
+  playPouBacksound()
+}
+
+// BACKSOUND
+function playPouBacksound(){
+  const backsound = document.getElementById("backsound")
+  backsound.volume = 0.1
+  backsound.loop = true
+  backsound.play()
+}
+
+function stopPouBacksound() {
+  const backsound = document.getElementById("backsound");
+  backsound.pause();
+  backsound.currentTime = 0;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const playCheckbox = document.getElementById("sound")
+  const labelCheckbox = document.getElementById("soundLabel")
+
+  if (playCheckbox.checked) {
+    playPouBacksound()
+  }
+
+  playCheckbox.addEventListener("change", function() {
+    if (playCheckbox.checked) {
+      playPouBacksound()
+      labelCheckbox.innerHTML = "Musik On 🔊"
+    } else {
+      stopPouBacksound()
+      labelCheckbox.innerHTML = "Musik Off 🔈"
+    }
+  });
+});
